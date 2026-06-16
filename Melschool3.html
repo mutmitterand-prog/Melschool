@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mel School - Excellence, Discipline, Réussite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- VARIABLES & COULEURS PREMIUM --- */
+        :root {
+            --primary: #0056b3;
+            --primary-hover: #004085;
+            --primary-gradient: linear-gradient(135deg, #0056b3 0%, #002885 100%);
+            --accent: #ffc107;
+            --accent-gradient: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            --text-dark: #2d3142;
+            --text-muted: #62677a;
+            --bg-light: #f4f7f9;
+            --white: #ffffff;
+            --card-radius: 16px;
+            --premium-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- INTERACTIF : ANIMATION AU SCROLL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- TOP BAR --- */
+        .top-bar {
+            background-color: #e9ecef;
+            padding: 10px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-bar i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+
+        .portal-links a {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: 600;
+        }
+
+        /* --- HEADER & NAVIGATION COMPACTE --- */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--premium-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text h1 {
+            color: var(--primary);
+            font-size: 1.35rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        /* Menu de navigation enrichi */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 3px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.88rem;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: #f0f4f8;
+            color: var(--primary);
+        }
+
+        /* Bouton INSCRIPTIONS */
+        .btn-inscription {
+            background: var(--primary-gradient);
+            color: var(--white) !important;
+            padding: 10px 20px !important;
+            border-radius: 30px !important;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.35);
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+            font-size: 0.88rem !important;
+        }
+
+        .btn-inscription:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.5);
+            background: linear-gradient(135deg, #004085 0%, #001850 100%) !important;
+        }
+
+        /* Menu Hamburger Mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-dark);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        #menu-checkbox {
+            display: none;
+        }
+
+        /* --- DÉFILANT FLUIDE --- */
+        .ticker-wrap {
+            background-color: var(--accent);
+            color: #212529;
+            padding: 12px 0;
+            overflow: hidden;
+            font-weight: 600;
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* --- HERO BANNER AVEC DEUX BOUTONS --- */
+        .hero {
+            background: linear-gradient(rgba(0, 86, 179, 0.78), rgba(0, 40, 133, 0.88)), url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200') no-repeat center center/cover;
+            color: var(--white);
+            padding: 110px 0 150px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 850px;
+            margin: 0 auto 35px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: #212529;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badges span {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- SÉLECTION COMPTEURS SANS LE "+" SYSTÉMATIQUE --- */
+        .stats-wrapper {
+            margin-top: -65px;
+            position: relative;
+            z-index: 10;
+            padding-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: var(--card-radius);
+            box-shadow: var(--premium-shadow);
+            border-bottom: 5px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- TITRES DE SECTIONS --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 800;
+            position: relative;
+        }
+
+        .section-title span {
+            color: var(--text-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--accent-gradient);
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        section {
+            padding: 90px 0;
+        }
+
+        .bg-white {
+            background-color: var(--white);
+        }
+
+        /* --- HISTORIQUE --- */
+        .history-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .history-text p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #4e5d6c;
+            text-align: justify;
+        }
+
+        .img-box img {
+            width: 100%;
+            border-radius: var(--card-radius);
+            box-shadow: var(--premium-shadow);
+            object-fit: cover;
+        }
+
+        /* --- MOT DU DIRECTEUR --- */
+        .director-section {
+            background: linear-gradient(rgba(244, 247, 249, 0.4), rgba(244, 247, 249, 0.9));
+        }
+
+        .director-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .director-quote {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--premium-shadow);
+            border-left: 5px solid var(--primary);
+            position: relative;
+        }
+
+        .director-quote i.quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            color: rgba(0, 86, 179, 0.05);
+        }
+
+        .director-quote p {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .director-name h4 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .director-name span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* --- NOUVEAUTÉ : SECTION NOS RÉSULTATS INSTITUTIONNELS --- */
+        .results-section {
+            background-color: #002885;
+            color: var(--white);
+            padding: 70px 0;
+        }
+        
+        .results-section .section-title {
+            color: var(--white);
+        }
+
+        .results-section .section-title span {
+            color: var(--accent);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .result-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .result-item h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .result-item p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        /* --- NOUVEAUTÉ : ETAPES D'ADMISSION (PROFILÉ PRO) --- */
+        .admission-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .step-card {
+            background: var(--white);
+            padding: 35px 25px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--premium-shadow);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border-top: 4px solid var(--primary);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+        }
+
+        .step-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .step-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        /* --- CYCLES --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .section-card {
+            background-color: var(--white);
+            border-radius: var(--card-radius);
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: var(--premium-shadow);
+            border-top: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .section-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .section-card .icon-container {
+            width: 75px;
+            height: 75px;
+            background-color: #f0f4f8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary);
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+
+        .section-card:hover .icon-container {
+            background: var(--primary-gradient);
+            color: var(--white);
+        }
+
+        .section-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- POURQUOI CHOISIR Mel School --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-item {
+            background-color: var(--white);
+            padding: 30px 20px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--premium-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .feature-item i {
+            font-size: 1.6rem;
+            color: #28a745;
+            background-color: #e8f5e9;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .feature-item span {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        /* --- OPTIONS --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .options-list {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .options-list li {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+        }
+
+        .options-list li i {
+            color: #28a745;
+            background-color: #e8f5e9;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        /* --- TÉMOIGNAGES RE-CRÉDIBILISÉS --- */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 35px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--premium-shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .stars {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .testimonial-card p {
+            font-size: 1.05rem;
+            color: #4e5d6c;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-info h5 {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .author-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* --- GALERIE PHOTO --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--premium-shadow);
+            height: 260px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            opacity: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .gallery-overlay h4 {
+            color: var(--white);
+            font-size: 1.1rem;
+        }
+
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* --- ACTUALITÉS --- */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--premium-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .card-text {
+            color: #555;
+            font-size: 0.98rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        /* --- PIED DE PAGE --- */
+        footer {
+            background-color: #1a1c24;
+            color: #a1a6b8;
+            padding: 80px 0 30px;
+            font-size: 0.95rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 35px;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .footer-contact-item i {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-top: 3px;
+        }
+
+        .footer-contact-content span {
+            display: block;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .schedule-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #2d3142;
+        }
+
+        .schedule-list li span.day {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .newsletter-form {
+            display: flex;
+            background-color: #252836;
+            padding: 6px;
+            border-radius: 30px;
+            border: 1px solid #2d3142;
+            margin-bottom: 25px;
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 8px 15px;
+            color: var(--white);
+        }
+
+        .newsletter-form button {
+            background: var(--primary-gradient);
+            color: var(--white);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .map-container {
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--premium-shadow);
+            height: 190px;
+            border: 1px solid #2d3142;
+        }
+
+        .footer-links-inline {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+            margin-bottom: 30px;
+            border-top: 1px solid #2d3142;
+            padding-top: 30px;
+        }
+
+        .footer-links-inline a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .footer-links-inline a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: var(--white);
+            font-size: 1.1rem;
+            width: 42px;
+            height: 42px;
+            background-color: #252836;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-socials a.fb:hover { background-color: #1877f2; }
+        .footer-socials a.ig:hover { background-color: #e1306c; }
+        .footer-socials a.yt:hover { background-color: #ff0000; }
+        .footer-socials a.wa:hover { background-color: #25d366; }
+
+        .copyright-text {
+            color: #53586d;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* --- NOUVEAUTÉ CRITIQUE : BARRE D'ACTION FLOTTANTE MOBILE --- */
+        .mobile-sticky-actions {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 2000;
+        }
+
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .floating-btn.whatsapp { background-color: #25d366; }
+        .floating-btn.phone { background-color: var(--primary); }
+        .floating-btn:hover { transform: scale(1.1) translateY(-3px); }
+
+        /* --- RESPONSIVE MOBILE PERFECTIONNÉ --- */
+        @media (max-width: 992px) {
+            .stats-grid, .results-grid, .admission-steps { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid, .director-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            header .container { padding: 15px 20px; position: relative; }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s cubic-bezier(0.25, 1, 0.25, 1);
+                flex-direction: column;
+                padding: 0;
+                z-index: 999;
+            }
+
+            nav ul { flex-direction: column; width: 100%; padding: 20px 0 10px; gap: 5px; }
+            nav ul li { width: 90%; text-align: center; }
+            nav ul li a { display: block; padding: 12px; }
+            .btn-inscription { width: 80%; margin: 10px 0 25px; text-align: center; }
+
+            #menu-checkbox:checked ~ nav { max-height: 600px; padding-bottom: 10px; }
+            #menu-checkbox:checked ~ .menu-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 6deg); }
+            #menu-checkbox:checked ~ .menu-toggle span:nth-child(2) { opacity: 0; }
+            #menu-checkbox:checked ~ .menu-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6deg); }
+
+            .history-grid, .options-grid { grid-template-columns: 1fr; gap: 30px; }
+            .stats-grid, .results-grid, .admission-steps { grid-template-columns: 1fr; }
+            .hero h2 { font-size: 2.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .stats-wrapper { margin-top: -30px; }
+            .footer-links-inline { flex-wrap: wrap; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="container">
+            <span><i class="fa-solid fa-location-dot"></i> Lubumbashi, Haut-Katanga, RD Congo</span>
+            <div class="portal-links">
+                <a href="#sections">Nos Cycles</a>
+                <a href="#options">Options Techniques</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo Mel School" onerror="this.style.display='none'">
+                <div class="logo-text">
+                    <h1>Mel School</h1>
+                    <span>Excellence • Discipline • Réussite</span>
+                </div>
+            </div>
+            
+            <input type="checkbox" id="menu-checkbox">
+            <label for="menu-checkbox" class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Accueil</a></li>
+                    <li><a href="#histoire">À propos</a></li>
+                    <li><a href="#sections">Cycles</a></li>
+                    <li><a href="#options">Options</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#galerie">Galerie</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="btn-inscription"><i class="fa-solid fa-user-plus"></i> INSCRIPTIONS</a>
+            </nav>
+        </div>
+    </header>
+
+        <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-item"><i class="fa-solid fa-bell"></i> Flash : Les inscriptions pour la nouvelle année scolaire sont officiellement ouvertes à Mel School !</span>
+            <span class="ticker-item"><i class="fa-solid fa-calendar-days"></i> Avis aux parents : Suivez l'évolution des communiqués directement sur notre portail mis à jour.</span>
+            
+            <span class="ticker-item"><i class="fa-solid fa-bell"></i> Flash : Les inscriptions pour la nouvelle année scolaire sont officiellement ouvertes au CS FKM !</span>
+            <span class="ticker-item"><i class="fa-solid fa-calendar-days"></i> Avis aux parents : Suivez l'évolution des communiqués directement sur notre portail mis à jour.</span>
+        </div>
+    </div>
+
+
+    <section class="hero">
+        <div class="container">
+            <h2>Bienvenue à Mel School</h2>
+            <p>Une école privée d'excellence à Lubumbashi qui offre un apprentissage riche et divertissant fondé sur le développement de communautés solides. Les élèves apprennent à penser de façon analytique, à communiquer avec le monde et à naviguer avec brio dans l'ère numérique !</p>
+            
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-file-signature"></i> Pré-inscrire mon enfant</a>
+                <a href="#galerie" class="btn btn-secondary"><i class="fa-solid fa-images"></i> Visiter l'école</a>
+            </div>
+            
+            <div class="hero-badges">
+                <span><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Agréé par l'État</span>
+                <span><i class="fa-solid fa-award" style="color:var(--accent);"></i> 20 ans d'expérience</span>
+                <span><i class="fa-solid fa-gears" style="color:var(--accent);"></i> Formation technique</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-wrapper" id="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 class="counter" data-target="1500" data-suffix="">0</h3>
+                    <p>Élèves inscrits</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="counter" data-target="120" data-suffix="">0</h3>
+                    <p>Enseignants qualifiés</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="counter" data-target="20" data-suffix="">0</h3>
+                    <p>Ans d'expérience</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="counter" data-target="4" data-suffix=" implantations">0</h3>
+                    <p>À Lubumbashi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="history-section bg-white reveal" id="histoire">
+        <div class="container">
+            <h2 class="section-title">Historique <span>de l'Établissement</span></h2>
+            <div class="history-grid">
+                <div class="history-text">
+                    <h3>Mel School</h3>
+                    <br>
+                    <p>En suivant les empreintes de nos visionnaires, le Mel School a été créé dans l’objectif de forger l’Homme de demain en créant une tradition d’excellence basée sur la foi chrétienne.</p>
+                    <p>Mel School, la bénédiction du Père, tire son origine de fondements solides visant à élever le niveau d'éducation au cœur de la province du Haut-Katanga.</p>
+                    <br>
+                    <a href="#sections" class="btn btn-primary" style="color: white;"><i class="fa-solid fa-bookmark"></i> En savoir plus</a>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600" alt="Élèves Mel School">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-section reveal">
+        <div class="container">
+            <h2 class="section-title">Preuve de performance : <span>Nos résultats</span></h2>
+            <div class="results-grid">
+                <div class="result-item">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>98%</h3>
+                    <p>De réussite globale aux Examens d'État</p>
+                </div>
+                <div class="result-item">
+                    <i class="fa-solid fa-star"></i>
+                    <h3>100%</h3>
+                    <p>En options techniques Électricité & Couture</p>
+                </div>
+                <div class="result-item">
+                    <i class="fa-solid fa-award"></i>
+                    <h3>Top Lauréats</h3>
+                    <p>Régulièrement primés dans la province</p>
+                </div>
+                <div class="result-item">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h3>85%</h3>
+                    <p>D'insertion ou accès universitaire direct</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="director-section reveal">
+        <div class="container">
+            <h2 class="section-title">Le Mot <span>du Directeur</span></h2>
+            <div class="director-grid">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=500" alt="Directeur Général de Mel School" style="height: 380px;">
+                </div>
+                <div class="director-quote">
+                    <i class="fa-solid fa-quote-right quote-icon"></i>
+                    <p>"Mel School s'engage au quotidien à offrir une éducation de qualité supérieure, solidement fondée sur l'excellence, la discipline rigoureuse et les valeurs chrétiennes. Notre mission est d'armer la jeunesse de Lubumbashi pour qu'elle devienne l'élite compétitive de demain."</p>
+                    <div class="director-name">
+                        <h4>Direction Générale</h4>
+                        <span>Mel School</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sections-organized bg-white reveal" id="sections">
+        <div class="container">
+            <h2 class="section-title">Sections <span>Organisées</span></h2>
+            <div class="cards-grid">
+                <div class="section-card">
+                    <div class="icon-container"><i class="fa-solid fa-child"></i></div>
+                    <h3>Maternelle</h3>
+                    <p>La maternelle prépare les jeunes élèves à l’apprentissage de la lecture, de l’écriture et des chiffres tout en développant leur socialisation dans un environnement de jeu et d’apprentissage ludique hautement sécurisé.</p>
+                </div>
+                <div class="section-card">
+                    <div class="icon-container"><i class="fa-solid fa-school"></i></div>
+                    <h3>Primaire</h3>
+                    <p>Les enfants développent leurs compétences de base en lecture, écriture et mathématiques, en étudiant des sujets scientifiques et sociaux qui renforcent pas à pas leur autonomie intellectuelle.</p>
+                </div>
+                <div class="section-card">
+                    <div class="icon-container"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>Secondaire</h3>
+                    <p>Développement de l'esprit critique et analyse de concepts complexes. Les étudiants abordent des filières d'apprentissage général ou des options d'études spécialisées selon leurs aspirations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal" id="admissions">
+        <div class="container">
+            <h2 class="section-title">Processus d'admission : <span>Comment s'inscrire ?</span></h2>
+            <div class="admission-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Retirer la fiche</h3>
+                    <p>Présentez-vous au secrétariat de l'école pour retirer le formulaire officiel de demande d'inscription.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Déposer le dossier</h3>
+                    <p>Remettez le dossier complet accompagné des bulletins précédents, pièces d'identité et photos récentes.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Passer le test</h3>
+                    <p>Pour assurer le suivi de niveau, l'élève effectue un test d'évaluation pédagogique de base.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Confirmation</h3>
+                    <p>Après validation de la direction, l'inscription est validée dès versement des frais requis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="options-section bg-white reveal" id="options">
+        <div class="container">
+            <h2 class="section-title">Options <span>Techniques & Générales</span></h2>
+            <div class="options-grid">
+                <div class="options-content">
+                    <p>Une bonne formation est un investissement essentiel pour réussir. C’est pourquoi le <strong>Mel School</strong> organise des filières techniques majeures :</p>
+                    <ul class="options-list">
+                        <li><i class="fa-solid fa-check"></i> Pédagogie générale</li>
+                        <li><i class="fa-solid fa-check"></i> Coupe et couture</li>
+                        <li><i class="fa-solid fa-check"></i> Scientifique</li>
+                        <li><i class="fa-solid fa-check"></i> Construction & Architecture</li>
+                        <li><i class="fa-solid fa-check"></i> Électricité</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Découvrir nos ateliers</a>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600" alt="Atelier technique électricité">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <div class="container">
+            <h2 class="section-title">Ce que disent <span>les Parents</span></h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Mon fils a obtenu 85% aux examens d'État grâce à la rigueur et à l'encadrement exceptionnel des enseignants de Mel School. Je recommande vivement !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>M. Kabamba Pascal</h5>
+                            <span>Parent d'élève — 6ème Primaire</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Les valeurs chrétiennes et la discipline inculquées font toute la différence. Mes deux filles y étudient et leur comportement est exemplaire."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Mme Ilunga Marie</h5>
+                            <span>Parent d'élève — 2ème Secondaire</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Les ateliers de la section électricité sont très modernes et pratiques. Mon enfant est déjà capable de réaliser des installations de base !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>M. Mutombo Jean</h5>
+                            <span>Parent d'élève — Option Électricité</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white reveal" id="galerie">
+        <div class="container">
+            <h2 class="section-title">Galerie <span>Photos</span></h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=500" alt="Classe Mel School"><div class="gallery-overlay"><h4>Salles de classe modernes</h4></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1562774053-401389dbf85b?q=80&w=500" alt="Bâtiment Mel School"><div class="gallery-overlay"><h4>Infrastructures d'accueil</h4></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=500" alt="Cours interactif"><div class="gallery-overlay"><h4>Enseignement qualitatif</h4></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?q=80&w=500" alt="Informatique Mel School"><div class="gallery-overlay"><h4>Laboratoire Technologies</h4></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516534775068-ba3e84589d90?q=80&w=500" alt="Bibliothèque Mel School"><div class="gallery-overlay"><h4>Espace de recherche & Lecture</h4></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=500" alt="Réussite Mel School"><div class="gallery-overlay"><h4>Célébration de la réussite</h4></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="news-section reveal" id="actualites">
+        <div class="container">
+            <h2 class="section-title">Dernières <span>Actualités</span></h2>
+            <div class="news-grid">
+                <article class="card">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400" alt="Atelier Électricité" class="card-img">
+                    <div class="card-body">
+                        <span class="card-date">16 Juin 2026</span>
+                        <h3 class="card-title">Travaux pratiques en Électricité</h3>
+                        <p class="card-text">Nos élèves en plein exercice de câblage et d'installation au sein des nouveaux laboratoires de l'établissement.</p>
+                        <a href="#" class="card-link" style="color:var(--primary); font-weight:700; text-decoration:none;">Lire l'article <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="https://images.unsplash.com/photo-1544640808-32ca72ac7f37?q=80&w=400" alt="Réinscriptions" class="card-img">
+                    <div class="card-body">
+                        <span class="card-date">12 Juin 2026</span>
+                        <h3 class="card-title">Ouverture des réinscriptions</h3>
+                        <p class="card-text">Les fiches d'inscription pour la nouvelle année scolaire sont disponibles au secrétariat de l'école.</p>
+                        <a href="#" class="card-link" style="color:var(--primary); font-weight:700; text-decoration:none;">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=400" alt="Culture" class="card-img">
+                    <div class="card-body">
+                        <span class="card-date">05 Juin 2026</span>
+                        <h3 class="card-title">Semaine de la Littérature</h3>
+                        <p class="card-text">Retour sur les passionnantes activités culturelles et de lecture organisées pour stimuler l'esprit critique de nos élèves.</p>
+                        <a href="#" class="card-link" style="color:var(--primary); font-weight:700; text-decoration:none;">Voir la galerie <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Nos coordonnées</h4>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="footer-contact-content">
+                            <span>Adresse physique</span>
+                            <p>Quartier Gambela, Commune de Lubumbashi, Ville de Lubumbashi, RD Congo</p>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div class="footer-contact-content">
+                            <span>Téléphones</span>
+                            <p>+243 84 72 60 997<br>+243 99 21 52 729</p>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div class="footer-contact-content">
+                            <span>E-mail</span>
+                            <p>info@csMel School.org</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Horaires d'ouverture</h4>
+                    <ul class="schedule-list" style="margin-bottom: 25px;">
+                        <li><span class="day">Lundi - Vendredi :</span> <span>07h30 - 16h00</span></li>
+                        <li><span class="day">Samedi :</span> <span>08h00 - 12h00</span></li>
+                        <li><span class="day">Dimanche :</span> <span style="color: #dc3545; font-weight:700;">Fermé</span></li>
+                    </ul>
+                    <h4>Newsletter</h4>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Merci pour votre inscription !');">
+                        <input type="email" placeholder="Ex : parent@gmail.com" required>
+                        <button type="submit">Souscrire</button>
+                    </form>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Notre Localisation</h4>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62637.319538392134!2d27.44747764863282!3d-11.669828599999992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19f356f1406cd7ff%3A0x5a31a590212e1315!2sLubumbashi!5e0!3m2!1sfr!2scd!4v1680000000000!5m2!1sfr!2scd" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="footer-links-inline">
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#histoire">À propos</a></li>
+                <li><a href="#sections">Cycles</a></li>
+                <li><a href="#options">Options</a></li>
+                <li><a href="#admissions">Admissions</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+            </ul>
+
+            <div class="footer-bottom">
+                <div class="footer-socials">
+                    <a href="https://wa.me/243847260997" class="wa" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="fb"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="ig"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="yt"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <p class="copyright-text">© CS Mel School. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-sticky-actions">
+        <a href="https://wa.me/243847260997" class="floating-btn whatsapp" target="_blank" title="Nous contacter sur WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+243847260997" class="floating-btn phone" title="Nous appeler">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <script>
+        // 1. BANDEAU DÉFILANT
+        const ticker = document.querySelector('.ticker');
+        ticker.addEventListener('mouseover', () => ticker.style.animationPlayState = 'paused');
+        ticker.addEventListener('mouseout', () => ticker.style.animationPlayState = 'running');
+
+        // 2. COMPTEUR ANIMÉ INTELLIGENT (Correctif Suffixe Sans le + automatique)
+        const statsSection = document.getElementById('stats-section');
+        const counters = document.querySelectorAll('.counter');
+        let animated = false;
+
+        function startCounters() {
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const suffix = counter.getAttribute('data-suffix'); // Plus de || '+' ici
+                let count = 0;
+                const speed = target / 50;
+
+                const updateCount = () => {
+                    count += speed;
+                    if (count < target) {
+                        counter.innerText = Math.floor(count) + suffix;
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + suffix;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // 3. ANIMATION REVEAL AU SCROLL
+        function revealElements() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+
+            const sectionTop = statsSection.getBoundingClientRect().top;
+            if (sectionTop < windowHeight - 100 && !animated) {
+                startCounters();
+                animated = true;
+            }
+
+            reveals.forEach(reveal => {
+                const revealTop = reveal.getBoundingClientRect().top;
+                if (revealTop < windowHeight - 80) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealElements);
+        window.addEventListener('load', revealElements);
+
+        // Fermeture automatique du menu mobile lors d'un clic
+        document.querySelectorAll('nav ul li a, .btn-inscription').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu-checkbox').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
